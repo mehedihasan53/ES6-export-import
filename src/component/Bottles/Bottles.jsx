@@ -1,13 +1,33 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Bottle from "../bottle/Bottle";
 import "./Bottles.css";
-import { AddToStoreCard } from "../../utility/localstorage";
+import {
+  AddToStoreCard,
+  getCartFromLocalStorage,
+} from "../../utility/localstorage";
 
 const Bottles = ({ bottlePromise }) => {
   const battles = use(bottlePromise);
   const [cart, setCart] = useState([]);
+
+  // console.log("clicked the button", bottle);
+
+  useEffect(() => {
+    const AddToStoreCard = getCartFromLocalStorage();
+
+    console.log(AddToStoreCard, battles);
+    const storedCart = [];
+    for (const id of getCartFromLocalStorage()) {
+      console.log(id);
+      const bottle = battles.find((bottle) => bottle.id === id);
+      if (bottle) {
+        storedCart.push(bottle);
+      }
+    }
+    setCart(storedCart);
+  }, [battles]);
+
   const handleAddToCart = (bottle) => {
-    // console.log("clicked the button", bottle);
     const newCart = [...cart, bottle];
     setCart(newCart);
     AddToStoreCard(bottle.id);
