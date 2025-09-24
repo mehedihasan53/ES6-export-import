@@ -1,0 +1,14 @@
+.card {
+  border: 2px solid goldenrod;
+  padding: 20px;
+  border-radius: 10px;
+}
+.card img {
+  width: 300px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
